@@ -1,0 +1,55 @@
+Update Customer.cs to add field validation
+------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace IntroToWebAPI
+{
+    public class Customer
+    {
+        public Customer()
+        {}
+
+        public Customer(int id, string firstName, string lastName, string address, int age, string citizenship, string emailAddress)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Address = address;
+            Age = age;
+            Citizenship = citizenship;
+            EmailAddress = emailAddress;
+        }
+
+        public int Id { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string LastName { get; set; }
+
+        [Required]
+        [MaxLength(10)]
+        public string Address { get; set; }
+
+        [Range(18,99, ErrorMessage = "Age must be 18 years and up")]
+        public int Age { get; set; }
+
+        public string Citizenship { get; set; }
+
+        [EmailAddress]
+        public string EmailAddress { get; set; }
+
+
+    }
+}
+
+-------------------------------------------------
+

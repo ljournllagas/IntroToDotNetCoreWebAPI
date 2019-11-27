@@ -10,7 +10,7 @@ namespace IntroToDotNetCoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomersController : ControllerBase
     {
         static List<Customer> customers = new List<Customer>()
         {
