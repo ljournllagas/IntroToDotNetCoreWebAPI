@@ -14,16 +14,6 @@ namespace IntroToWebAPI
         public Customer()
         {}
 
-        public Customer(int id, string firstName, string lastName, string address, int age, string citizenship, string emailAddress)
-        {
-            Id = id;
-            FirstName = firstName;
-            LastName = lastName;
-            Address = address;
-            Age = age;
-            Citizenship = citizenship;
-            EmailAddress = emailAddress;
-        }
 
         public int Id { get; set; }
 

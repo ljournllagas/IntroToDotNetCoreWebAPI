@@ -10,6 +10,7 @@ namespace IntroToDotNetCoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //api controller to demonstrate the basics of dot net core web api
     public class CustomersController : ControllerBase
     {
         static List<Customer> customers = new List<Customer>()
@@ -82,7 +83,7 @@ namespace IntroToDotNetCoreWebAPI.Controllers
         public ActionResult<Customer> AddCustomer(Customer customer)
         {
             customers.Add(customer);
-            return StatusCode(StatusCodes.Status201Created, customer);
+            return StatusCode(StatusCodes.Status201Created);
         }
 
 
@@ -104,7 +105,7 @@ namespace IntroToDotNetCoreWebAPI.Controllers
         {
             var customerObj = customers.FirstOrDefault(c => c.Id == customer.Id);
 
-            if (customer == null)
+            if (customerObj == null)
                 return NotFound();
 
             customerObj.FirstName = customer.FirstName;
