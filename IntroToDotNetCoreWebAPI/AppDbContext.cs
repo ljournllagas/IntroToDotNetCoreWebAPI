@@ -13,5 +13,7 @@ namespace IntroToDotNetCoreWebAPI
         {}
 
         public DbSet<Customer> Customer { get; set; }
+        public DbSet<Account> Account { get; set; }
+
     }
 }

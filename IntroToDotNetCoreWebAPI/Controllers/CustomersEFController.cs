@@ -12,32 +12,32 @@ namespace IntroToDotNetCoreWebAPI.Controllers
     [ApiController]
     public class CustomersEFController : ControllerBase
     {
-        private readonly AppDbContext dbContext;
+        private readonly AppDbContext _dbContext;
 
         public CustomersEFController(AppDbContext context)
         {
-            dbContext = context;
+            _dbContext = context;
         }
 
         [HttpGet]
         public ActionResult<List<Customer>> GetCustomers()
         {
-            return Ok(dbContext.Customer.ToList());
+            return Ok(_dbContext.Customer.ToList());
         }
 
         [HttpGet("{id}")]
         public ActionResult<Customer> GetCustomer(int id)
         {
-            var filteredCustomer = dbContext.Customer.FirstOrDefault(c => c.Id == id);
+            var filteredCustomer = _dbContext.Customer.FirstOrDefault(c => c.Id == id);
             return Ok(filteredCustomer);
         }
 
         [HttpPost]
         public ActionResult<Customer> AddCustomer(Customer customer)
         {
-            dbContext.Add(customer);
+            _dbContext.Add(customer);
 
-            if (dbContext.SaveChanges() == 0)
+            if (_dbContext.SaveChanges() == 0)
                 return StatusCode(StatusCodes.Status500InternalServerError);
 
             return StatusCode(StatusCodes.Status201Created);
@@ -46,11 +46,11 @@ namespace IntroToDotNetCoreWebAPI.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Customer> RemoveCustomer(int id)
         {
-            var filteredCustomer = dbContext.Customer.FirstOrDefault(c => c.Id == id);
+            var filteredCustomer = _dbContext.Customer.FirstOrDefault(c => c.Id == id);
 
-            dbContext.Customer.Remove(filteredCustomer);
+            _dbContext.Customer.Remove(filteredCustomer);
 
-            if (dbContext.SaveChanges() == 0)
+            if (_dbContext.SaveChanges() == 0)
                 return StatusCode(StatusCodes.Status500InternalServerError);
 
             return StatusCode(StatusCodes.Status204NoContent);
@@ -59,7 +59,7 @@ namespace IntroToDotNetCoreWebAPI.Controllers
         [HttpPut]
         public ActionResult<Customer> UpdateCustomerDetails(Customer customer)
         {
-            var customerObj = dbContext.Customer.FirstOrDefault(c => c.Id == customer.Id);
+            var customerObj = _dbContext.Customer.FirstOrDefault(c => c.Id == customer.Id);
 
             if (customerObj == null)
                 return NotFound();
@@ -71,7 +71,7 @@ namespace IntroToDotNetCoreWebAPI.Controllers
             customerObj.Citizenship = customer.Citizenship;
             customerObj.EmailAddress = customer.EmailAddress;
 
-            if (dbContext.SaveChanges() == 0)
+            if (_dbContext.SaveChanges() == 0)
                 return StatusCode(StatusCodes.Status500InternalServerError);
 
             return StatusCode(StatusCodes.Status204NoContent);

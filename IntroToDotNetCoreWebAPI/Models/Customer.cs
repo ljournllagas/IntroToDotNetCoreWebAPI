@@ -33,6 +33,7 @@ namespace IntroToDotNetCoreWebAPI.Models
         [EmailAddress]
         public string EmailAddress { get; set; }
 
+        public ICollection<Account> Accounts { get; set; }
 
     }
 }

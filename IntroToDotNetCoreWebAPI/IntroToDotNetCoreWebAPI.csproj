@@ -7,6 +7,10 @@
   <ItemGroup>
     <Compile Remove="Migrations\20191128234522_CustomerDb.cs" />
     <Compile Remove="Migrations\20191128234522_CustomerDb.Designer.cs" />
+    <Compile Remove="Migrations\20191129021708_AddAccountTable.cs" />
+    <Compile Remove="Migrations\20191129021708_AddAccountTable.Designer.cs" />
+    <Compile Remove="Migrations\20191129022215_AddAccountTable.cs" />
+    <Compile Remove="Migrations\20191129022215_AddAccountTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
