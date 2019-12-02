@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace IntroToDotNetCoreWebAPI
 {
@@ -63,6 +64,9 @@ namespace IntroToDotNetCoreWebAPI
             }
 
             app.UseHttpsRedirection();
+
+            // Add this line; you'll need `using Serilog;` up the top, too
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 
