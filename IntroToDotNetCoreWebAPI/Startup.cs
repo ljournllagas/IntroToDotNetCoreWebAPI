@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using IntroToDotNetCoreWebAPI.Models;
+using IntroToDotNetCoreWebAPI.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace IntroToDotNetCoreWebAPI
 {
@@ -29,7 +35,18 @@ namespace IntroToDotNetCoreWebAPI
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite("Data source = IntroToWebApi.db"));
 
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddTransient<IValidator<Account>, AccountValidator>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Intro To Dot Net Core Web API", Version = "v1" });
+            });
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddControllers()
+                .AddNewtonsoftJson()
+                .AddFluentValidation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +67,16 @@ namespace IntroToDotNetCoreWebAPI
             {
                 endpoints.MapControllers();
             });
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API - v1");
+            });
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace IntroToDotNetCoreWebAPI.Models
         [Required]
         [MaxLength(50)]
         public string AccountName { get; set; }
+
+        [JsonIgnore]
         public Customer Customer { get; set; }
         public int CustomerId { get; set; }
     }

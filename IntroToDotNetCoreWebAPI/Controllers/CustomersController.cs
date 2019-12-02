@@ -71,6 +71,7 @@ namespace IntroToDotNetCoreWebAPI.Controllers
             return Ok(filteredCustomer);
         }
 
+        [HttpGet]
         [Route("GetCustomer")]
         public ActionResult<Customer> GetCustomerByQueryString([FromQuery] int id)
         {

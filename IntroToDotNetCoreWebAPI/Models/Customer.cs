@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace IntroToDotNetCoreWebAPI.Models
         [EmailAddress]
         public string EmailAddress { get; set; }
 
+        [JsonIgnore]
         public ICollection<Account> Accounts { get; set; }
 
     }
