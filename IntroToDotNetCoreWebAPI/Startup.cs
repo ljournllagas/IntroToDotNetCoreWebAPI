@@ -6,6 +6,7 @@ using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using IntroToDotNetCoreWebAPI.Models;
+using IntroToDotNetCoreWebAPI.Models.Configs;
 using IntroToDotNetCoreWebAPI.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +23,7 @@ namespace IntroToDotNetCoreWebAPI
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,13 +31,16 @@ namespace IntroToDotNetCoreWebAPI
 
         public IConfiguration Configuration { get; }
 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite("Data source = IntroToWebApi.db"));
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IValidator<Account>, AccountValidator>();
+
+            services.AddSingleton(Configuration.GetSection("mailConfig").Get<MailConfig>());
 
             services.AddSwaggerGen(c =>
             {
